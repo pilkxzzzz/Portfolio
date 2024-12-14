@@ -27,37 +27,37 @@ function displayProjects() {
     const projectGrid = document.querySelector('.project-grid');
     projectGrid.innerHTML = ''; // Clear any existing content
     
-    // Display Record Games project
-    const project = projectsConfig['Record-games'];
-    
-    const projectCard = document.createElement('div');
-    projectCard.className = 'project-card';
-    projectCard.innerHTML = `
-        <div class="project-header">
-            <img src="${project.icon}" alt="${project.title} icon" class="project-icon">
-            <div>
-                <div class="project-title">${project.title}</div>
-                <div class="project-tech">${project.tech}</div>
+    // Display all projects
+    Object.values(projectsConfig).forEach(project => {
+        const projectCard = document.createElement('div');
+        projectCard.className = 'project-card';
+        projectCard.innerHTML = `
+            <div class="project-header">
+                <img src="${project.icon}" alt="${project.title} icon" class="project-icon">
+                <div>
+                    <div class="project-title">${project.title}</div>
+                    <div class="project-tech">${project.tech}</div>
+                </div>
             </div>
-        </div>
-        <div class="project-devs">
-            Devs: ${project.devs.join(' ')}
-        </div>
-        <div class="project-description">${project.description}</div>
-        <a href="${project.github}" class="project-link" target="_blank">
-            <i class="fab fa-github"></i> View on GitHub
-        </a>
-    `;
+            <div class="project-devs">
+                Dev: ${project.devs.map(dev => `<a href="${dev.github}" class="dev-link" target="_blank">${dev.name}</a>`).join(' ')}
+            </div>
+            <div class="project-description">${project.description}</div>
+            <a href="${project.github}" class="project-link" target="_blank">
+                <i class="fab fa-github"></i> View on GitHub
+            </a>
+        `;
 
-    // Add click event to show screenshots
-    projectCard.addEventListener('click', (e) => {
-        // Prevent opening screenshots when clicking the GitHub link
-        if (!e.target.closest('.project-link')) {
-            showScreenshots(project.screenshots);
-        }
+        // Add click event to show screenshots
+        projectCard.addEventListener('click', (e) => {
+            // Prevent opening screenshots when clicking the GitHub link or dev link
+            if (!e.target.closest('.project-link') && !e.target.closest('.dev-link')) {
+                showScreenshots(project.screenshots);
+            }
+        });
+        
+        projectGrid.appendChild(projectCard);
     });
-    
-    projectGrid.appendChild(projectCard);
 }
 
 function showScreenshots(screenshots) {
@@ -92,6 +92,19 @@ function prevScreenshot() {
 // Initialize when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     displayProjects();
+    
+    // Moving background effect
+    const movingBackground = document.querySelector('.moving-background');
+    
+    document.addEventListener('mousemove', (e) => {
+        const mouseX = e.clientX / window.innerWidth - 0.5;
+        const mouseY = e.clientY / window.innerHeight - 0.5;
+        
+        const moveX = mouseX * 20; // Adjust this value to control horizontal movement
+        const moveY = mouseY * 20; // Adjust this value to control vertical movement
+        
+        movingBackground.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    });
     
     // Modal controls
     const modal = document.getElementById('screenshotsModal');
