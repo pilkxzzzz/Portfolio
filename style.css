@@ -286,6 +286,7 @@ main {
     font-weight: 500;
     font-size: 0.8rem;
     width: fit-content;
+    margin-top: 0.5rem; /* Add margin to separate buttons */
 }
 
 .project-link:hover {

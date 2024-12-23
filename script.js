@@ -46,6 +46,9 @@ function displayProjects() {
             <a href="${project.github}" class="project-link" target="_blank">
                 <i class="fab fa-github"></i> View on GitHub
             </a>
+            ${project.title === 'Software Hub' ? `<a href="${project.website}" class="project-link" target="_blank">
+                <i class="fas fa-external-link-alt"></i> Visit Website
+            </a>` : ''}
         `;
 
         // Add click event to show screenshots
@@ -112,9 +115,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextBtn = document.querySelector('.next-button');
     const prevBtn = document.querySelector('.prev-button');
     
-    closeBtn.onclick = () => modal.classList.remove('show');
-    nextBtn.onclick = nextScreenshot;
-    prevBtn.onclick = prevScreenshot;
+    if (closeBtn) {
+        closeBtn.onclick = () => modal.classList.remove('show');
+    }
+    if (nextBtn) {
+        nextBtn.onclick = nextScreenshot;
+    }
+    if (prevBtn) {
+        prevBtn.onclick = prevScreenshot;
+    }
     
     window.onclick = (e) => {
         if (e.target === modal) {
@@ -148,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize particles.js
     if (window.particlesJS) {
-        particlesJS.load('particles-js', 'particles.js', function() {
+        particlesJS.load('particles-js', 'particles.json', function() {
             console.log('particles.js loaded');
         });
     }

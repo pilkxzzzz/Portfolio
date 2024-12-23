@@ -1,76 +1,76 @@
 particlesJS('particles-js', {
-  particles: {
-    number: {
-      value: 80,
-      density: {
-        enable: true,
-        value_area: 800
+  "particles": {
+    "number": {
+      "value": 80,
+      "density": {
+        "enable": true,
+        "value_area": 800
       }
     },
-    color: {
-      value: '#38BDF8'
+    "color": {
+      "value": "#38BDF8"
     },
-    shape: {
-      type: 'circle'
+    "shape": {
+      "type": "circle"
     },
-    opacity: {
-      value: 0.5,
-      random: false,
-      anim: {
-        enable: false
+    "opacity": {
+      "value": 0.5,
+      "random": false,
+      "anim": {
+        "enable": false
       }
     },
-    size: {
-      value: 3,
-      random: true,
-      anim: {
-        enable: false
+    "size": {
+      "value": 3,
+      "random": true,
+      "anim": {
+        "enable": false
       }
     },
-    line_linked: {
-      enable: true,
-      distance: 150,
-      color: '#38BDF8',
-      opacity: 0.2,
-      width: 1
+    "line_linked": {
+      "enable": true,
+      "distance": 150,
+      "color": "#38BDF8",
+      "opacity": 0.2,
+      "width": 1
     },
-    move: {
-      enable: true,
-      speed: 2,
-      direction: 'none',
-      random: false,
-      straight: false,
-      out_mode: 'out',
-      bounce: false,
-      attract: {
-        enable: false
+    "move": {
+      "enable": true,
+      "speed": 2,
+      "direction": "none",
+      "random": false,
+      "straight": false,
+      "out_mode": "out",
+      "bounce": false,
+      "attract": {
+        "enable": false
       }
     }
   },
-  interactivity: {
-    detect_on: 'canvas',
-    events: {
-      onhover: {
-        enable: true,
-        mode: 'grab'
+  "interactivity": {
+    "detect_on": "canvas",
+    "events": {
+      "onhover": {
+        "enable": true,
+        "mode": "grab"
       },
-      onclick: {
-        enable: true,
-        mode: 'push'
+      "onclick": {
+        "enable": true,
+        "mode": "push"
       },
-      resize: true
+      "resize": true
     },
-    modes: {
-      grab: {
-        distance: 140,
-        line_linked: {
-          opacity: 1
+    "modes": {
+      "grab": {
+        "distance": 140,
+        "line_linked": {
+          "opacity": 1
         }
       },
-      push: {
-        particles_nb: 4
+      "push": {
+        "particles_nb": 4
       }
     }
   },
-  retina_detect: true
+  "retina_detect": true
 });

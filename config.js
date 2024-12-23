@@ -56,5 +56,21 @@ const projectsConfig = {
             './images/notes-logo.jpg',
         ],
         github: 'https://github.com/pilkxzzzz/Notes-Windows'
+    },
+    'Software-Hub': {
+        title: 'Software Hub',
+        tech: 'HTML, CSS, JavaScript',
+        devs: [{
+            name: 'pilkxzzzz',
+            github: 'https://github.com/pilkxzzzz'
+        }],
+        description: 'A hub for various software projects and utilities.',
+        icon: './images/software-hub-logo.jpg.webp', // Updated path to .webp file
+        screenshots: [
+            './images/software-hub-screenshot1.jpg',
+            './images/software-hub-screenshot2.jpg'
+        ],
+        github: 'https://github.com/pilkxzzzz/Software-Hub',
+        website: 'https://pilkxzzzz.github.io/Software-Hub/'
     }
 };
