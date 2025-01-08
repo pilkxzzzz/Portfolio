@@ -1,191 +1,437 @@
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
-
-// Add scroll event listener for header
-window.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
-    if (window.scrollY > 50) {
-        header.style.backgroundColor = 'rgba(26, 26, 26, 0.95)';
-    } else {
-        header.style.backgroundColor = '#1a1a1a';
-    }
-});
-
-// Global variables for modal
-let currentScreenshotIndex = 0;
-let currentScreenshots = [];
-
-// Display projects
-function displayProjects() {
-    const projectGrid = document.querySelector('.project-grid');
-    projectGrid.innerHTML = ''; // Clear any existing content
-    
-    // Display all projects
-    Object.values(projectsConfig).forEach(project => {
-        const projectCard = document.createElement('div');
-        projectCard.className = 'project-card';
-        projectCard.innerHTML = `
-            <div class="project-header">
-                <img src="${project.icon}" alt="${project.title} icon" class="project-icon">
-                <div>
-                    <div class="project-title">${project.title}</div>
-                    <div class="project-tech">${project.tech}</div>
-                </div>
-            </div>
-            <div class="project-devs">
-                Dev: ${project.devs.map(dev => `<a href="${dev.github}" class="dev-link" target="_blank">${dev.name}</a>`).join(' ')}
-            </div>
-            <div class="project-description">${project.description}</div>
-            <a href="${project.github}" class="project-link" target="_blank">
-                <i class="fab fa-github"></i> View on GitHub
-            </a>
-            ${project.title === 'Software Hub' ? `<a href="${project.website}" class="project-link" target="_blank">
-                <i class="fas fa-external-link-alt"></i> Visit Website
-            </a>` : ''}
-        `;
-
-        // Add click event to show screenshots
-        projectCard.addEventListener('click', (e) => {
-            // Prevent opening screenshots when clicking the GitHub link or dev link
-            if (!e.target.closest('.project-link') && !e.target.closest('.dev-link')) {
-                showScreenshots(project.screenshots);
-            }
-        });
-        
-        projectGrid.appendChild(projectCard);
-    });
-}
-
-function showScreenshots(screenshots) {
-    const modal = document.getElementById('screenshotsModal');
-    const container = modal.querySelector('.screenshots-container');
-    currentScreenshots = screenshots;
-    currentScreenshotIndex = 0;
-    
-    updateScreenshot();
-    modal.classList.add('show');
-}
-
-function updateScreenshot() {
-    const container = document.querySelector('.screenshots-container');
-    container.innerHTML = `
-        <img src="${currentScreenshots[currentScreenshotIndex]}" 
-             alt="Screenshot ${currentScreenshotIndex + 1}" 
-             class="screenshot">
-    `;
-}
-
-function nextScreenshot() {
-    currentScreenshotIndex = (currentScreenshotIndex + 1) % currentScreenshots.length;
-    updateScreenshot();
-}
-
-function prevScreenshot() {
-    currentScreenshotIndex = (currentScreenshotIndex - 1 + currentScreenshots.length) % currentScreenshots.length;
-    updateScreenshot();
-}
-
-// Initialize when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    displayProjects();
-    
-    // Moving background effect
-    const movingBackground = document.querySelector('.moving-background');
-    
-    document.addEventListener('mousemove', (e) => {
-        const mouseX = e.clientX / window.innerWidth - 0.5;
-        const mouseY = e.clientY / window.innerHeight - 0.5;
-        
-        const moveX = mouseX * 20; // Adjust this value to control horizontal movement
-        const moveY = mouseY * 20; // Adjust this value to control vertical movement
-        
-        movingBackground.style.transform = `translate(${moveX}px, ${moveY}px)`;
-    });
-    
-    // Modal controls
-    const modal = document.getElementById('screenshotsModal');
-    const closeBtn = document.querySelector('.close-modal');
-    const nextBtn = document.querySelector('.next-button');
-    const prevBtn = document.querySelector('.prev-button');
-    
-    if (closeBtn) {
-        closeBtn.onclick = () => modal.classList.remove('show');
-    }
-    if (nextBtn) {
-        nextBtn.onclick = nextScreenshot;
-    }
-    if (prevBtn) {
-        prevBtn.onclick = prevScreenshot;
-    }
-    
-    window.onclick = (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('show');
+    // Термінальний ефект друку
+    function typeWriter(element, text, speed = 50) {
+        let i = 0;
+        element.innerHTML = '';
+        function type() {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+            }
         }
-    };
-    
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (modal.classList.contains('show')) {
-            if (e.key === 'ArrowRight') nextScreenshot();
-            if (e.key === 'ArrowLeft') prevScreenshot();
-            if (e.key === 'Escape') modal.classList.remove('show');
-        }
-    });
+        type();
+    }
 
-    // Animate sections on scroll
+    // Анімація появи елементів
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('animate');
+                entry.target.classList.add('show');
+                if (entry.target.querySelector('.subtitle')) {
+                    typeWriter(
+                        entry.target.querySelector('.subtitle'),
+                        entry.target.querySelector('.subtitle').textContent
+                    );
+                }
             }
         });
-    }, {
-        threshold: 0.1
     });
 
-    document.querySelectorAll('.section-title, .project-card, .contact-link').forEach(el => {
-        observer.observe(el);
+    document.querySelectorAll('section').forEach((section) => {
+        observer.observe(section);
     });
 
-    // Initialize particles.js
-    if (window.particlesJS) {
-        particlesJS.load('particles-js', 'particles.json', function() {
-            console.log('particles.js loaded');
+    // Ефект терміналу для навігації
+    document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('mouseover', function() {
+            this.style.color = '#9b30ff';
         });
-    }
 
-    // Animate logo glow
-    const logoGlow = document.querySelector('.logo-glow');
-    if (logoGlow) {
-        setInterval(() => {
-            logoGlow.style.animation = 'none';
-            logoGlow.offsetHeight; // Trigger reflow
-            logoGlow.style.animation = null;
-        }, 3000);
-    }
+        anchor.addEventListener('mouseout', function() {
+            this.style.color = '#e0e0e0';
+        });
 
-    // Add hover effects to nav links
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('mouseenter', (e) => {
-            const icon = e.currentTarget.querySelector('i');
-            if (icon) {
-                icon.style.transform = 'scale(1.2) rotate(10deg)';
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            window.scrollTo({
+                top: targetSection.offsetTop - 80,
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Додаємо ефект мерехтіння курсору
+    setInterval(() => {
+        document.querySelector('.cursor').style.opacity = 
+            document.querySelector('.cursor').style.opacity === '0' ? '1' : '0';
+    }, 500);
+
+    document.querySelectorAll('.social-link').forEach(link => {
+        link.addEventListener('mouseover', function() {
+            this.style.transform = 'translateY(-5px)';
+        });
+
+        link.addEventListener('mouseout', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+
+    // Анімація появи секцій при скролі
+    const sections = document.querySelectorAll('section');
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px'
+    };
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
             }
+        });
+    }, observerOptions);
+
+    sections.forEach(section => {
+        sectionObserver.observe(section);
+    });
+
+    // Ефект паралаксу для карток проектів
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / card.clientWidth) * 100;
+            const y = ((e.clientY - rect.top) / card.clientHeight) * 100;
+            
+            card.style.setProperty('--mouse-x', `${x}%`);
+            card.style.setProperty('--mouse-y', `${y}%`);
+            
+            // Додаємо 3D ефект повороту
+            const rotateY = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
+            const rotateX = ((e.clientY - rect.top) / rect.height - 0.5) * -20;
+            
+            card.style.transform = `
+                translateY(-10px)
+                rotateX(${rotateX}deg)
+                rotateY(${rotateY}deg)
+            `;
         });
         
-        link.addEventListener('mouseleave', (e) => {
-            const icon = e.currentTarget.querySelector('i');
-            if (icon) {
-                icon.style.transform = 'scale(1) rotate(0)';
-            }
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0) rotateX(0) rotateY(0)';
+            
+            // Плавно повертаємо світіння в центр
+            card.style.setProperty('--mouse-x', '50%');
+            card.style.setProperty('--mouse-y', '50%');
+        });
+        
+        // Додаємо ефект натискання
+        card.addEventListener('mousedown', () => {
+            card.style.transform = 'translateY(-5px) scale(0.95)';
+        });
+        
+        card.addEventListener('mouseup', () => {
+            card.style.transform = 'translateY(-10px) scale(1)';
         });
     });
-});
+
+    // Додаємо ефект glitch для заголовка
+    const title = document.querySelector('#home h1');
+    title.setAttribute('data-text', title.textContent);
+
+    // Анімація для технологій
+    document.querySelectorAll('.tech-stack').forEach(stack => {
+        const technologies = stack.textContent.split(',');
+        stack.textContent = '';
+        technologies.forEach(tech => {
+            const span = document.createElement('span');
+            span.textContent = tech.trim();
+            span.style.background = `rgba(155, 48, 255, ${Math.random() * 0.2 + 0.1})`;
+            span.style.padding = '3px 8px';
+            span.style.borderRadius = '4px';
+            stack.appendChild(span);
+        });
+    });
+
+    // Матричний дощ
+    const canvas = document.getElementById('matrix-rain');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+    const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const nums = '0123456789';
+    const alphabet = katakana + latin + nums;
+
+    const fontSize = 16;
+    const columns = canvas.width/fontSize;
+
+    const rainDrops = Array(Math.floor(columns)).fill(1);
+
+    function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#9b30ff';
+        ctx.font = fontSize + 'px monospace';
+
+        for(let i = 0; i < rainDrops.length; i++) {
+            const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+            ctx.fillText(text, i*fontSize, rainDrops[i]*fontSize);
+            
+            if(rainDrops[i]*fontSize > canvas.height && Math.random() > 0.975) {
+                rainDrops[i] = 0;
+            }
+            rainDrops[i]++;
+        }
+    }
+
+    setInterval(draw, 30);
+
+    // Кастомний курсор
+    const cursor = document.querySelector('.custom-cursor');
+
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+
+    document.addEventListener('mousedown', () => {
+        cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+    });
+
+    document.addEventListener('mouseup', () => {
+        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
+
+    // Додаємо ефект світіння при наведенні на посилання
+    document.querySelectorAll('a, button').forEach(element => {
+        element.addEventListener('mouseenter', () => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+            cursor.style.background = 'rgba(155, 48, 255, 0.1)';
+        });
+
+        element.addEventListener('mouseleave', () => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+            cursor.style.background = 'transparent';
+        });
+    });
+
+    // Додаємо ефект хвилі при кліку
+    document.addEventListener('click', function(e) {
+        let ripple = document.createElement('div');
+        ripple.className = 'ripple';
+        ripple.style.left = e.clientX + 'px';
+        ripple.style.top = e.clientY + 'px';
+        document.body.appendChild(ripple);
+        
+        ripple.addEventListener('animationend', function() {
+            ripple.remove();
+        });
+    });
+
+    // Анімація рівня навичок
+    document.querySelectorAll('.skill-level').forEach(skill => {
+        const level = skill.dataset.level;
+        skill.style.setProperty('--level', level + '%');
+    });
+
+    // Додаємо анімацію для тегів
+    document.querySelectorAll('.tag').forEach(tag => {
+        tag.addEventListener('mouseover', function() {
+            this.style.transform = 'translateY(-5px) rotate(3deg)';
+        });
+
+        tag.addEventListener('mouseout', function() {
+            this.style.transform = 'translateY(0) rotate(0)';
+        });
+    });
+
+    // Секретна комбінація клавіш для гри
+    const secretCode = 'game';
+    let typedKeys = '';
+
+    document.addEventListener('keydown', (e) => {
+        typedKeys += e.key.toLowerCase();
+        if (typedKeys.length > secretCode.length) {
+            typedKeys = typedKeys.slice(1);
+        }
+        if (typedKeys === secretCode) {
+            startTypingGame();
+        }
+    });
+
+    // Функція для запуску гри
+    function startTypingGame() {
+        const gameContainer = document.createElement('div');
+        gameContainer.className = 'typing-game';
+        gameContainer.innerHTML = `
+            <div class="game-window">
+                <h3>Terminal Typing Game</h3>
+                <p class="target-text"></p>
+                <input type="text" class="typing-input" autocomplete="off">
+                <div class="game-stats">
+                    <span class="wpm">WPM: 0</span>
+                    <span class="accuracy">Accuracy: 100%</span>
+                </div>
+                <button class="close-game">Close</button>
+            </div>
+        `;
+        document.body.appendChild(gameContainer);
+
+        const words = [
+            'console.log("Hello, World!");',
+            'function coding() { return "fun"; }',
+            'const developer = "awesome";',
+            'while(coding) { learnMore(); }',
+            'git commit -m "New features"'
+        ];
+
+        const targetText = gameContainer.querySelector('.target-text');
+        const input = gameContainer.querySelector('.typing-input');
+        const wpmDisplay = gameContainer.querySelector('.wpm');
+        const accuracyDisplay = gameContainer.querySelector('.accuracy');
+        let startTime, endTime;
+
+        function newGame() {
+            const randomWord = words[Math.floor(Math.random() * words.length)];
+            targetText.textContent = randomWord;
+            input.value = '';
+            startTime = new Date();
+        }
+
+        input.addEventListener('input', () => {
+            const current = input.value;
+            const target = targetText.textContent;
+            
+            if (current === target) {
+                endTime = new Date();
+                const timeTaken = (endTime - startTime) / 1000 / 60; // в хвилинах
+                const wpm = Math.round((target.length / 5) / timeTaken);
+                wpmDisplay.textContent = `WPM: ${wpm}`;
+                setTimeout(newGame, 1000);
+            }
+
+            // Розрахунок точності
+            let correct = 0;
+            current.split('').forEach((char, i) => {
+                if (char === target[i]) correct++;
+            });
+            const accuracy = Math.round((correct / current.length) * 100) || 100;
+            accuracyDisplay.textContent = `Accuracy: ${accuracy}%`;
+        });
+
+        gameContainer.querySelector('.close-game').addEventListener('click', () => {
+            gameContainer.remove();
+        });
+
+        newGame();
+    }
+
+    // Додаємо перемикач тем
+    const themes = {
+        default: {
+            '--primary-color': '#9b30ff',
+            '--bg-color': '#1a1a1a',
+            '--text-color': '#e0e0e0'
+        },
+        cyberpunk: {
+            '--primary-color': '#00ff9f',
+            '--bg-color': '#120458',
+            '--text-color': '#ff00ff'
+        },
+        retro: {
+            '--primary-color': '#ff8c00',
+            '--bg-color': '#2d132c',
+            '--text-color': '#ff6b6b'
+        }
+    };
+
+    function applyTheme(themeName) {
+        const theme = themes[themeName];
+        Object.entries(theme).forEach(([property, value]) => {
+            document.documentElement.style.setProperty(property, value);
+        });
+        localStorage.setItem('selectedTheme', themeName);
+    }
+
+    function createThemeSwitcher() {
+        const switcher = document.createElement('div');
+        switcher.className = 'theme-switcher';
+        switcher.innerHTML = `
+            <div class="theme-btn">🎨</div>
+            <div class="theme-options">
+                ${Object.keys(themes).map(theme => `
+                    <button data-theme="${theme}">${theme}</button>
+                `).join('')}
+            </div>
+        `;
+        document.body.appendChild(switcher);
+
+        switcher.querySelector('.theme-btn').addEventListener('click', () => {
+            switcher.classList.toggle('active');
+        });
+
+        switcher.querySelectorAll('[data-theme]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const themeName = btn.dataset.theme;
+                applyTheme(themeName);
+                switcher.classList.remove('active');
+            });
+        });
+
+        // Застосовуємо збережену тему при завантаженні
+        const savedTheme = localStorage.getItem('selectedTheme');
+        if (savedTheme && themes[savedTheme]) {
+            applyTheme(savedTheme);
+        }
+    }
+
+    createThemeSwitcher();
+
+    // Матричний ефект для секції skills
+    const skillsSection = document.querySelector('#skills');
+    let matrixCanvas;
+
+    skillsSection.addEventListener('mouseenter', () => {
+        if (!matrixCanvas) {
+            matrixCanvas = document.createElement('canvas');
+            matrixCanvas.className = 'matrix-effect';
+            skillsSection.appendChild(matrixCanvas);
+            initMatrixEffect(matrixCanvas);
+        }
+        matrixCanvas.style.opacity = '0.1';
+    });
+
+    skillsSection.addEventListener('mouseleave', () => {
+        if (matrixCanvas) {
+            matrixCanvas.style.opacity = '0';
+        }
+    });
+
+    function initMatrixEffect(canvas) {
+        const ctx = canvas.getContext('2d');
+        canvas.width = skillsSection.offsetWidth;
+        canvas.height = skillsSection.offsetHeight;
+
+        const chars = '01';
+        const fontSize = 10;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--primary-color');
+            ctx.font = fontSize + 'px monospace';
+
+            drops.forEach((y, i) => {
+                const char = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(char, i * fontSize, y * fontSize);
+                
+                if (y * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            });
+        }
+
+        setInterval(drawMatrix, 50);
+    }
+}); 

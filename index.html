@@ -1,63 +1,313 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pilkxzzzz - Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Terminal Portfolio | pilkxzzzz</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div id="particles-js"></div>
+
     <header>
         <nav>
-            <div class="logo">Pilkxzzzz</div>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#home">~/home</a></li>
+                <li><a href="#about">~/about</a></li>
+                <li><a href="#projects">~/projects</a></li>
+                <li><a href="#contact">~/contact</a></li>
+                <li><a href="#achievements">~/achievements</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section id="projects" class="projects">
-            <div class="project-grid">
-                <!-- Projects will be loaded here dynamically -->
+        <section id="home">
+            <h1>pilk@developer:~$ whoami<span class="cursor"></span></h1>
+            <p class="subtitle">Full Stack Developer</p>
+        </section>
+
+        <section id="about">
+            <h2>cat about.txt</h2>
+            <p>Я починаючий програміст, який спеціалізується на розробці десктопних додатків та веб-рішень. Маю досвід роботи з Python, C#, JavaScript та різними фреймворками.</p>
+        </section>
+
+        <section id="skills">
+            <h2>cat skills.json</h2>
+            <div class="skills-terminal">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="close"></span>
+                        <span class="minimize"></span>
+                        <span class="maximize"></span>
+                    </div>
+                    <div class="terminal-title">pilk@developer:~/skills</div>
+                </div>
+                <div class="terminal-content">
+                    <div class="skills-category">
+                        <div class="command-line">
+                            <span class="prompt">$</span> 
+                            <span class="command">ls -la languages/</span>
+                        </div>
+                        <div class="skills-grid">
+                            <div class="skill-item python">
+                                <i class="devicon-python-plain"></i>
+                                <span class="skill-name">Python</span>
+                                <div class="skill-level" data-level="90"></div>
+                            </div>
+                            <div class="skill-item javascript">
+                                <i class="devicon-javascript-plain"></i>
+                                <span class="skill-name">JavaScript</span>
+                                <div class="skill-level" data-level="85"></div>
+                            </div>
+                            <div class="skill-item csharp">
+                                <i class="devicon-csharp-plain"></i>
+                                <span class="skill-name">C#</span>
+                                <div class="skill-level" data-level="80"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skills-category">
+                        <div class="command-line">
+                            <span class="prompt">$</span> 
+                            <span class="command">ls -la tools/</span>
+                        </div>
+                        <div class="tools-grid">
+                            <div class="tool-item">
+                                <span class="tool-icon">🛠️</span>
+                                <span class="tool-name">VS Code</span>
+                            </div>
+                            <div class="tool-item">
+                                <span class="tool-icon">⚙️</span>
+                                <span class="tool-name">Git</span>
+                            </div>
+                            <div class="tool-item">
+                                <span class="tool-icon">🐍</span>
+                                <span class="tool-name">PyCharm</span>
+                            </div>
+                            <div class="tool-item">
+                                <span class="tool-icon">🎮</span>
+                                <span class="tool-name">Unity</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skills-category">
+                        <div class="command-line">
+                            <span class="prompt">$</span> 
+                            <span class="command">cat interests.txt</span>
+                        </div>
+                        <div class="interests-list">
+                            <div class="interest-item">
+                                <span class="tag">🎮 Game Development</span>
+                                <span class="tag">🤖 AI & Machine Learning</span>
+                                <span class="tag">🔒 Cybersecurity</span>
+                                <span class="tag">🌐 Web Development</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="contact" class="contact">
-            <div class="contact-links">
-                <a href="https://github.com/pilkxzzzz" target="_blank">
-                    <i class="fab fa-github"></i> GitHub
-                </a>
-                <a href="https://t.me/pilkxzz" target="_blank">
-                    <i class="fab fa-telegram"></i> Telegram
-                </a>
+        <section id="projects">
+            <h2>ls ~/projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>Zyxie Chillax Gaming</h3>
+                    <p>Ігровий лаунчер з унікальним дизайном та розширеними можливостями для геймерів. Включає систему моніторингу продуктивності та оптимізації ігор.</p>
+                    <div class="tech-stack">Python, Qt, System Monitoring</div>
+                    <a href="https://github.com/pilkxzzzz/zyxie-chillax-gaming-55" class="project-link">Переглянути проект</a>
+                </div>
+
+                <div class="project-card">
+                    <h3>Portfolio Website</h3>
+                    <p>Персональний веб-сайт портфоліо з інтерактивним терміналоподібним інтерфейсом та анімаціями. Демонструє проекти та навички в стильному форматі.</p>
+                    <div class="tech-stack">HTML, CSS, JavaScript, Particles.js</div>
+                    <a href="https://github.com/pilkxzzzz/Portfolio" class="project-link">Переглянути проект</a>
+                </div>
+
+                <div class="project-card">
+                    <h3>Game Launcher Pro</h3>
+                    <p>Сучасний лаунчер ігор з можливістю запису відео та створення скріншотів. Підтримує інтеграцію зі Steam та Epic Games.</p>
+                    <div class="tech-stack">Python, PyQt5, OpenCV</div>
+                    <a href="https://github.com/pilkxzzzz/Record-games" class="project-link">Переглянути проект</a>
+                </div>
+
+                <div class="project-card">
+                    <h3>KASTOM WINDOWS PROGRAM</h3>
+                    <p>Програма для налаштування та персоналізації Windows з сучасним інтерфейсом.</p>
+                    <div class="tech-stack">Python, PySide6</div>
+                    <a href="https://github.com/pilkxzzzz/KASTOM-WINDOWS-PROGRAM" class="project-link">Переглянути проект</a>
+                </div>
+
+                <div class="project-card">
+                    <h3>Modern Voice Assistant</h3>
+                    <p>Голосовий асистент з сучасним графічним інтерфейсом та підтримкою голосових команд.</p>
+                    <div class="tech-stack">Python, Speech Recognition, CustomTkinter</div>
+                    <a href="https://github.com/pilkxzzzz/Modern-Voice-Assistant" class="project-link">Переглянути проект</a>
+                </div>
+
+                <div class="project-card">
+                    <h3>Notes Windows</h3>
+                    <p>Додаток для створення та управління нотатками з підтримкою малювання та темної теми.</p>
+                    <div class="tech-stack">C#, .NET 6.0, Windows Forms</div>
+                    <a href="https://github.com/pilkxzzzz/Notes-Windows" class="project-link">Переглянути проект</a>
+                </div>
+
+                <div class="project-card">
+                    <h3>Software Hub</h3>
+                    <p>Веб-портал для завантаження програмного забезпечення з зручною навігацією та фільтрацією.</p>
+                    <div class="tech-stack">HTML, CSS, JavaScript</div>
+                    <a href="https://github.com/pilkxzzzz/Software-Hub" class="project-link">Переглянути проект</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="achievements">
+            <h2>cat achievements.log</h2>
+            <div class="achievements-terminal">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="close"></span>
+                        <span class="minimize"></span>
+                        <span class="maximize"></span>
+                    </div>
+                    <div class="terminal-title">pilk@developer:~/achievements</div>
+                </div>
+                <div class="terminal-content">
+                    <div class="achievements-grid">
+                        <div class="achievement-card">
+                            <div class="achievement-icon">🏆</div>
+                            <div class="achievement-info">
+                                <h3>Level 1 Complete</h3>
+                                <div class="achievement-progress">
+                                    <div class="progress-bar" data-progress="100"></div>
+                                    <span class="progress-text">100 XP / 100 XP</span>
+                                </div>
+                                <p>Створив перший проект на GitHub</p>
+                            </div>
+                        </div>
+
+                        <div class="achievement-card">
+                            <div class="achievement-icon">⭐</div>
+                            <div class="achievement-info">
+                                <h3>Code Master</h3>
+                                <div class="achievement-progress">
+                                    <div class="progress-bar" data-progress="75"></div>
+                                    <span class="progress-text">75 XP / 100 XP</span>
+                                </div>
+                                <p>Опанував 3 мови програмування</p>
+                            </div>
+                        </div>
+
+                        <div class="achievement-card">
+                            <div class="achievement-icon">🚀</div>
+                            <div class="achievement-info">
+                                <h3>Project Launch</h3>
+                                <div class="achievement-progress">
+                                    <div class="progress-bar" data-progress="90"></div>
+                                    <span class="progress-text">90 XP / 100 XP</span>
+                                </div>
+                                <p>Запустив перший публічний проект</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-container">
+                        <div class="command-line">
+                            <span class="prompt">$</span> 
+                            <span class="command">stats --view</span>
+                        </div>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-label">Commits</span>
+                                <span class="stat-value" data-count="256">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Projects</span>
+                                <span class="stat-value" data-count="7">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Technologies</span>
+                                <span class="stat-value" data-count="12">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>contact.sh</h2>
+            <div class="social-links">
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <div class="terminal-buttons">
+                            <span class="close"></span>
+                            <span class="minimize"></span>
+                            <span class="maximize"></span>
+                        </div>
+                        <div class="terminal-title">pilk@terminal:~/social_networks</div>
+                    </div>
+                    <div class="terminal-content">
+                        <div class="command-line">
+                            <span class="prompt">$</span> 
+                            <span class="command">find / -name "social_networks" -type d</span>
+                        </div>
+                        <div class="social-grid">
+                            <a href="https://t.me/pilkxz" class="social-link telegram">
+                                <div class="social-icon">
+                                    <img src="images/telegram-avatar.jpg" alt="Telegram avatar" onerror="this.src='https://telegram.org/img/t_logo.png'">
+                                </div>
+                                <div class="social-info">
+                                    <span class="platform">Telegram Channel</span>
+                                    <span class="username">@pilkxz</span>
+                                    <span class="description">Новини та оновлення проектів</span>
+                                </div>
+                                <div class="hover-effect"></div>
+                            </a>
+
+                            <a href="https://www.youtube.com/@pilk_xz" class="social-link youtube">
+                                <div class="social-icon">
+                                    <img src="images/youtube-avatar.jpg" alt="YouTube avatar" onerror="this.src='https://yt3.googleusercontent.com/ytc/APkrFKaqca-xQxjxjqCUNMvFyXwV3fAYFEQRLNWxsH3J=s176-c-k-c0x00ffffff-no-rj'">
+                                </div>
+                                <div class="social-info">
+                                    <span class="platform">YouTube</span>
+                                    <span class="username">@pilk_xz</span>
+                                    <span class="description">Туторіали та огляди проектів</span>
+                                </div>
+                                <div class="hover-effect"></div>
+                            </a>
+
+                            <a href="https://www.tiktok.com/@pilk_xzz" class="social-link tiktok">
+                                <div class="social-icon">
+                                    <img src="images/tiktok-avatar.jpg" alt="TikTok avatar">
+                                </div>
+                                <div class="social-info">
+                                    <span class="platform">TikTok</span>
+                                    <span class="username">@pilk_xzz</span>
+                                    <span class="description">Короткі відео та хайлайти</span>
+                                </div>
+                                <div class="hover-effect"></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
-    <div id="particles-js"></div>
-    <div class="moving-background"></div>
-
-    <!-- Modal Structure -->
-    <div id="screenshotsModal" class="modal">
-        <div class="modal-content">
-            <div class="screenshots-container"></div>
-            <span class="close-modal">&times;</span>
-            <button class="nav-button prev-button">&lt;</button>
-            <button class="nav-button next-button">&gt;</button>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="particles.js"></script>
-    <script src="config.js"></script>
-    <script src="script.js"></script>
-
     <footer>
-        <p>&copy; 2024 Pilkxzzzz. All rights reserved.</p>
+        <p>exit 0 # © 2024 pilkxzzzz</p>
     </footer>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="particles-config.js"></script>
+
+    <canvas id="matrix-rain"></canvas>
+    <div class="custom-cursor"></div>
 </body>
-</html>
+</html> 
